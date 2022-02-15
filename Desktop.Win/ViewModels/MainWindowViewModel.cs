@@ -193,7 +193,10 @@ namespace Remotely.Desktop.Win.ViewModels
             {
                 formattedSessionID += sessionId.Substring(i, 3) + " ";
             }
-
+            //temp add connection ID to registery to can be consumed by other services.
+            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Remotely");
+            key.SetValue("SID", formattedSessionID);
+            
             App.Current?.Dispatcher?.Invoke(() =>
             {
                 _sessionId = formattedSessionID.Trim();
